@@ -1,0 +1,9 @@
+---
+
+# Main tasks file for transparent-huge-pages role
+
+- name: 'INIT | Manage variables to use for our target'
+  include: "{{ role_path }}/tasks/manage_variables.yml"
+  tags:
+    - 'role::transparent-huge-pages'
+    - 'role::transparent-huge-pages::init'

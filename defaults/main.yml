@@ -1,3 +1,21 @@
 ---
 
 # Defaults vars file for transparent-huge-pages role
+
+# Service file content
+thp_sys_settings: "{{ _thp_sys_settings | default([]) }}"
+
+# Service type
+thp_use_init_file: "{{ _thp_use_init_file | default(True) }}"
+
+# Service settings
+thp_service_name: 'disable-transparent-huge-pages'
+thp_service_enabled: True
+
+# Init services
+thp_init_file:
+  path: "/etc/init.d/{{ thp_service_name }}"
+  owner: 'root'
+  group: 'root'
+  mode: '0755'
+thp_init_x_start_before: []

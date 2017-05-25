@@ -16,12 +16,21 @@ docker:
     - name: 'transparent-huge-pages-docker-jessie'
       image: 'debian'
       image_version: 'jessie'
+      privileged: True
+      cap_add:
+        - 'SYS_PTRACE'
     - name: 'transparent-huge-pages-docker-trusty'
       image: 'ubuntu'
       image_version: 'trusty'
+      privileged: True
+      cap_add:
+        - 'SYS_PTRACE'
     - name: 'transparent-huge-pages-docker-xenial'
       image: 'ubuntu'
       image_version: 'xenial'
+      privileged: True
+      cap_add:
+        - 'SYS_PTRACE'
 molecule:
   ignore_paths:
     - '.git'

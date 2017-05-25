@@ -1,0 +1,23 @@
+---
+
+# Manage services files
+
+- name: 'INSTALL | Manage init.d services files'
+  template:
+    src: "{{ item }}"
+    dest: "{{ thp_init_file.path }}"
+    owner: "{{ thp_init_file.owner }}"
+    group: "{{ thp_init_file.group }}"
+    mode: "{{ thp_init_file.mode }}"
+  notify: 'HANDLER | Restart transparent-huge-pages'
+  with_first_found:
+    - "{{ role_path }}/templates/{{ ansible_os_family | lower }}/transparent-huge-pages.init.j2"
+    - "{{ role_path }}/templates/transparent-huge-pages.init.j2"
+  when: 'thp_use_init_file'
+
+
+- name: 'INSTALL | Manage service settings'
+  service:
+    name: "{{ thp_service_name }}"
+    enabled: "{{ thp_service_enabled }}"
+  notify: 'HANDLER | Restart transparent-huge-pages'

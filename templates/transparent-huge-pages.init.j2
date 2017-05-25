@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# {{ ansible_managed }}
+
+### BEGIN INIT INFO
+# Provides:          disable-transparent-hugepages
+# Required-Start:    $local_fs
+# Required-Stop:
+# X-Start-Before:    {{ thp_init_x_start_before | join(' ') }}
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Disable transparent huge pages
+# Description:       Disable transparent huge pages
+### END INIT INFO
+
+# If setting not managed, exit
+if [ ! -d /sys/kernel/mm/transparent_hugepage ]
+then
+    return 0
+fi
+
+# Else, manage needed values
+case ${1} in
+    start|restart)
+{% for setting in thp_sys_settings %}
+        echo '{{ setting.value }}' > {{ setting.key }}
+{% endfor %}
+        ;;
+    status)
+{% for setting in thp_sys_settings %}
+        echo "{{ setting.key }} => $(cat {{ setting.key }})"
+{% endfor %}
+        ;;
+    *)
+        echo "Usage: /etc/init.d/disable-transparent-hugepages {start|status}"
+        exit 1
+        ;;
+esac

@@ -7,3 +7,11 @@
   tags:
     - 'role::transparent-huge-pages'
     - 'role::transparent-huge-pages::init'
+
+
+- name: 'INSTALL | Manage services'
+  become: True
+  include: "{{ role_path }}/tasks/manage_services.yml"
+  tags:
+    - 'role::transparent-huge-pages'
+    - 'role::transparent-huge-pages::install'

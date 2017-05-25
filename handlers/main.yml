@@ -1,3 +1,8 @@
 ---
 
 # Handlers main file for transparent-huge-pages role
+
+- name: 'HANDLER | Restart transparent-huge-pages'
+  service:
+    name: "{{ thp_service_name }}"
+    state: 'restarted'

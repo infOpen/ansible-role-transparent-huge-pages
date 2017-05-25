@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/infOpen/ansible-role-transparent-huge-pages.svg?branch=master)](https://travis-ci.org/infOpen/ansible-role-transparent-huge-pages)
 
-Install transparent-huge-pages package.
+Manage transparent-huge-pages system settings.
 
 ## Requirements
 
@@ -46,6 +46,33 @@ $ MOLECULE_DRIVER=vagrant tox
 ### Default role variables
 
 ``` yaml
+# Service file content
+thp_sys_settings: "{{ _thp_sys_settings | default([]) }}"
+
+# Service type
+thp_use_init_file: "{{ _thp_use_init_file | default(True) }}"
+
+# Service settings
+thp_service_name: 'disable-transparent-huge-pages'
+thp_service_enabled: True
+
+# Init services
+thp_init_file:
+  path: "/etc/init.d/{{ thp_service_name }}"
+  owner: 'root'
+  group: 'root'
+  mode: '0755'
+thp_init_x_start_before: []
+```
+
+### Debian family OS variables
+
+``` yaml
+_thp_sys_settings:
+  - key: '/sys/kernel/mm/transparent_hugepage/enabled'
+    value: 'never'
+  - key: '/sys/kernel/mm/transparent_hugepage/defrag'
+    value: 'never'
 ```
 
 ## Dependencies

@@ -1,6 +1,10 @@
 # transparent-huge-pages
 
-[![Build Status](https://travis-ci.org/infOpen/ansible-role-transparent-huge-pages.svg?branch=master)](https://travis-ci.org/infOpen/ansible-role-transparent-huge-pages)
+[![Build Status](https://img.shields.io/travis/infOpen/ansible-role-transparent-huge-pages/master.svg?label=travis_master)](https://travis-ci.org/infOpen/ansible-role-transparent-huge-pages)
+[![Build Status](https://img.shields.io/travis/infOpen/ansible-role-transparent-huge-pages/develop.svg?label=travis_develop)](https://travis-ci.org/infOpen/ansible-role-transparent-huge-pages)
+[![Updates](https://pyup.io/repos/github/infOpen/ansible-role-transparent-huge-pages/shield.svg)](https://pyup.io/repos/github/infOpen/ansible-role-transparent-huge-pages/)
+[![Python 3](https://pyup.io/repos/github/infOpen/ansible-role-transparent-huge-pages/python-3-shield.svg)](https://pyup.io/repos/github/infOpen/ansible-role-transparent-huge-pages/)
+[![Ansible Role](https://img.shields.io/ansible/role/18013.svg)](https://galaxy.ansible.com/infOpen/transparent-huge-pages/)
 
 Manage transparent-huge-pages system settings.
 

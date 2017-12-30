@@ -2,9 +2,11 @@
 Role tests
 """
 
+import os
 from testinfra.utils.ansible_runner import AnsibleRunner
 
-testinfra_hosts = AnsibleRunner('.molecule/ansible_inventory').get_hosts('all')
+testinfra_hosts = AnsibleRunner(
+    os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('all')
 
 
 def test_service_file(host):
@@ -40,13 +42,13 @@ def test_sysfs_rules(host):
         rules = [
             (
                 '/sys/kernel/mm/transparent_hugepage/defrag',
-                'always madvise [never]'
+                '[never]'
             ),
             (
                 '/sys/kernel/mm/transparent_hugepage/enabled',
-                'always madvise [never]'
+                '[never]'
             ),
         ]
 
     for rule in rules:
-        assert host.check_output('cat {}'.format(rule[0])) == rule[1]
+        assert rule[1] in host.check_output('cat {}'.format(rule[0]))

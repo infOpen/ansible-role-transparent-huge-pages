@@ -4,29 +4,56 @@ dependency:
   name: 'galaxy'
 driver:
   name: 'docker'
-lint:
-  name: 'yamllint'
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+  flake8
 platforms:
-  - name: "transparent-huge-pages-docker-jessie"
-    image: 'minimum2scp/systemd-jessie:latest'
-    command: '/sbin/init'
-    cap_add:
-      - 'SYS_PTRACE'
+  - name: "transparent-huge-pages-docker-centos7"
+    groups:
+      - 'centos'
+    image: 'jrei/systemd-centos:7'
     privileged: True
-  - name: "transparent-huge-pages-docker-xenial"
-    image: 'ubuntu:xenial'
-    cap_add:
-      - 'SYS_PTRACE'
+    volumes:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+  - name: "transparent-huge-pages-docker-centos8"
+    groups:
+      - 'centos'
+    image: 'jrei/systemd-centos:8'
     privileged: True
-  - name: "transparent-huge-pages-docker-trusty"
-    image: 'ubuntu:trusty'
-    cap_add:
-      - 'SYS_PTRACE'
+    volumes:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+  - name: "transparent-huge-pages-docker-debian9"
+    groups:
+      - 'debian'
+    image: 'jrei/systemd-debian:9'
     privileged: True
+    volumes:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+  - name: "transparent-huge-pages-docker-debian10"
+    groups:
+      - 'debian'
+    image: 'jrei/systemd-debian:10'
+    privileged: True
+    volumes:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+  - name: "transparent-huge-pages-docker-ubuntu18"
+    groups:
+      - 'ubuntu'
+    image: 'jrei/systemd-ubuntu:18.04'
+    privileged: True
+    volumes:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+  - name: "transparent-huge-pages-docker-ubuntu20"
+    groups:
+      - 'ubuntu'
+    image: 'jrei/systemd-ubuntu:20.04'
+    privileged: True
+    volumes:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
 provisioner:
   name: 'ansible'
-  lint:
-    name: 'ansible-lint'
   inventory:
     group_vars:
       all: {}
@@ -37,7 +64,5 @@ verifier:
   name: 'testinfra'
   additional_files_or_dirs:
     - '../../tests'
-  lint:
-    name: 'flake8'
   options:
     sudo: True

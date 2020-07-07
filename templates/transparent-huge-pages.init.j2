@@ -21,7 +21,7 @@ fi
 
 # Else, manage needed values
 case ${1} in
-    start|restart)
+    start|stop|restart)
 {% for setting in thp_sys_settings %}
         echo '{{ setting.value }}' > {{ setting.key }}
 {% endfor %}
@@ -32,7 +32,7 @@ case ${1} in
 {% endfor %}
         ;;
     *)
-        echo "Usage: /etc/init.d/disable-transparent-hugepages {start|status}"
+        echo "Usage: /etc/init.d/disable-transparent-hugepages {start|stop|restart}"
         exit 1
         ;;
 esac

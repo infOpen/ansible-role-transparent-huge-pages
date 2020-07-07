@@ -3,6 +3,7 @@
 # Manage services files
 
 - name: 'INSTALL | Manage init.d services files'
+  become: True
   template:
     src: "{{ item }}"
     dest: "{{ thp_init_file.path }}"
@@ -17,6 +18,7 @@
 
 
 - name: 'INSTALL | Manage service settings'
+  become: True
   service:
     name: "{{ thp_service_name }}"
     enabled: "{{ thp_service_enabled }}"

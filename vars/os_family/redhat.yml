@@ -1,0 +1,9 @@
+---
+
+# RedHat family specific vars
+
+_thp_sys_settings:
+  - key: '/sys/kernel/mm/transparent_hugepage/enabled'
+    value: 'never'
+  - key: '/sys/kernel/mm/transparent_hugepage/defrag'
+    value: 'never'

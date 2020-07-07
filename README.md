@@ -1,7 +1,7 @@
 # transparent-huge-pages
 
-[![Build Status](https://img.shields.io/travis/infOpen/ansible-role-transparent-huge-pages/master.svg?label=travis_master)](https://travis-ci.org/infOpen/ansible-role-transparent-huge-pages)
-[![Build Status](https://img.shields.io/travis/infOpen/ansible-role-transparent-huge-pages/develop.svg?label=travis_develop)](https://travis-ci.org/infOpen/ansible-role-transparent-huge-pages)
+[![CI](https://github.com/infOpen/ansible-role-transparent-huge-pages/workflows/CI/badge.svg)](https://github.com/infOpen/ansible-role-transparent-huge-pages/actions)
+[![Mergify Status][mergify-status]][mergify]
 [![Updates](https://pyup.io/repos/github/infOpen/ansible-role-transparent-huge-pages/shield.svg)](https://pyup.io/repos/github/infOpen/ansible-role-transparent-huge-pages/)
 [![Python 3](https://pyup.io/repos/github/infOpen/ansible-role-transparent-huge-pages/python-3-shield.svg)](https://pyup.io/repos/github/infOpen/ansible-role-transparent-huge-pages/)
 [![Ansible Role](https://img.shields.io/ansible/role/18013.svg)](https://galaxy.ansible.com/infOpen/transparent-huge-pages/)
@@ -10,26 +10,27 @@ Manage transparent-huge-pages system settings.
 
 ## Requirements
 
-This role requires Ansible 2.0 or higher,
+This role requires Ansible 2.8 or higher,
 and platform requirements are listed in the metadata file.
 
 ## Testing
 
-This role use [Molecule](https://github.com/metacloud/molecule/) to run tests.
+This role use [Molecule](https://github.com/ansible-community/molecule) to run tests.
 
-Locally, you can run tests on Docker (default driver) or Vagrant.
-Travis run tests using Docker driver only.
+Local and Github Actions tests run tests on Docker by default.
+See molecule documentation to use other backend.
 
 Currently, tests are done on:
-- Debian Jessie
-- Ubuntu Trusty
-- Ubuntu Xenial
+- CentOS 7
+- CentOS 8
+- Debian Buster
+- Debian Stretch
+- Ubuntu Bionic
+- Ubuntu Focal
 
 and use:
-- Ansible 2.0.x
-- Ansible 2.1.x
-- Ansible 2.2.x
-- Ansible 2.3.x
+- Ansible 2.8.x
+- Ansible 2.9.x
 
 ### Running tests
 
@@ -39,10 +40,12 @@ and use:
 $ tox
 ```
 
-#### Using Vagrant driver
+You can also configure molecule options and molecule command using environment variables:
+* `MOLECULE_OPTIONS` Default: "--debug"
+* `MOLECULE_COMMAND` Default: "test"
 
 ```
-$ MOLECULE_DRIVER=vagrant tox
+$ MOLECULE_OPTIONS='' MOLECULE_COMMAND=converge tox
 ```
 
 ## Role Variables
@@ -98,5 +101,8 @@ MIT
 ## Author Information
 
 Alexandre Chaussier (for Infopen company)
-- http://www.infopen.pro
+- https://www.infopen.pro
 - a.chaussier [at] infopen.pro
+
+[mergify]: https://mergify.io
+[mergify-status]: https://img.shields.io/endpoint.svg?url=https://gh.mergify.io/badges/infOpen/ansible-role-transparent-huge-pages&style=flat

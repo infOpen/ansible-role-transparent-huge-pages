@@ -5,4 +5,5 @@
 - name: 'HANDLER | Restart transparent-huge-pages'
   service:
     name: "{{ thp_service_name }}"
+    enabled: True
     state: 'restarted'
